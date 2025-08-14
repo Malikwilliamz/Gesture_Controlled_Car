@@ -12,11 +12,13 @@
 
 
 ## Overview
-
 ### Description
+
 ### Features
 
 ## Hardware
+//Insert List of Components
+//Insert Wiring Diagram
 
 ## Setup
 
@@ -25,7 +27,8 @@
 
 # Reference
 * [MediaPipe](https://github.com/google/mediapipe)
-* [MediaPipe Hand gesture recognition (by Kazuhito00)](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe)
+* [MediaPipe Hand gesture recognition (by Nikita Kiselov)](https://github.com/kinivi/hand-gesture-recognition-mediapipe)
+* [Youtube Video by Ivan Goncharov](https://www.youtube.com/watch?v=a99p_fAr6e4&list=PL0FM467k5KSyt5o3ro2fyQGt-6zRkHXRv)
 
 # Author
 Malik W Mwaniki(https://github.com/Malikwilliamz)

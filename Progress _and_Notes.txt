@@ -1,0 +1,32 @@
+-->File Structure(Rough)
+Code/
+ main.py
+ modules/
+ testing/
+  motors.py
+  car_camera.py
+  Gesture_Recognition/
+    *refer to the repo(Hand_Gesture_Recognition)
+ utils/
+  client
+  server
+ 
+Hardware/
+ Circuit Diagram
+ Components
+
+Config/
+ hardware_config
+Requiremnts.txt
+.gitignore
+License
+ 
+->(08/12):
+    -Understood Gesture Recognition Model and training
+    -Ensured client-server connection is established between laptop and rpi
+    
+->(08/13):
+    -Worked on Repo and Structure
+    -
+
+->

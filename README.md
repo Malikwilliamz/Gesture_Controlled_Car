@@ -2,12 +2,12 @@
 //Video of Moving Car
 
 ## Index
-1. [Overview]
-    * [Description]
-    * [Features]
-2. [Hardware]
-3. [Setup]
-4. [Repository Structure]
+1. [Overview](#Overview)
+    * [Description](#description)
+    * [Features](#features)
+2. [Hardware](#hardware)
+3. [Setup](#setup)
+4. [Repository Structure](#repository-structure)
 
 
 

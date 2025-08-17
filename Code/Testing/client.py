@@ -22,4 +22,4 @@ def connect_to_server(HOST, PORT):
 
 
 if __name__ == "__main__":
-    connect_to_server(HOST_IP, 65432)
+    connect_to_server(SERVER_IP, 65432)

@@ -2,8 +2,10 @@ import socket
 import sys
 
 sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Code/Utils')
+sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Config')
 
 from network import HOST_IP
+from hardware_config import run_motor_1
 
 def connect_to_client(PORT):
     HOST = HOST_IP
@@ -26,6 +28,8 @@ def connect_to_client(PORT):
 
                 if data == "FORWARD":
                     print("Moving forward")
+                    run_motor_1()
+
                 elif data == "BACKWARD":
                     print("Moving backward")
                 elif data == "LEFT":

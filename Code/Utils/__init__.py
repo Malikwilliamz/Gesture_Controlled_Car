@@ -1,0 +1,1 @@
+from .network import HOST_IP, SERVER_IP

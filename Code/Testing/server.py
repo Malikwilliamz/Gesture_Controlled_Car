@@ -1,38 +1,44 @@
 import socket
+import sys
 
-HOST = ""
-PORT = 65432
+sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Code/Utils')
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
-    server.bind((HOST, PORT))
-    server.listen()
-    print(f"Server listening on {HOST}:{PORT}")
+from network import HOST_IP
 
-    conn, addr = server.accept()
+def connect_to_client(PORT):
+    HOST = HOST_IP
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+        server.bind((HOST, PORT))
+        server.listen()
+        print(f"Server listening on {HOST}:{PORT}")
 
-    with conn:
-        print(f"Connected by {addr}")
+        conn, addr = server.accept()
 
-        while True:
-            data = conn.recv(1024).decode()
-            if not data:
-                break
+        with conn:
+            print(f"Connected by {addr}")
 
-            print(f"Received: {data}")
+            while True:
+                data = conn.recv(1024).decode()
+                if not data:
+                    break
 
-            if data == "FORWARD":
-                print("Moving forward")
-            elif data == "BACKWARD":
-                print("Moving backward")
-            elif data == "LEFT":
-                print("Turning left")
-            elif data == "RIGHT":
-                print("Turning right")
-            else:
-                print("Unknown command")
+                print(f"Received: {data}")
 
-            conn.sendall(b'Hello from server')
+                if data == "FORWARD":
+                    print("Moving forward")
+                elif data == "BACKWARD":
+                    print("Moving backward")
+                elif data == "LEFT":
+                    print("Turning left")
+                elif data == "RIGHT":
+                    print("Turning right")
+                else:
+                    print("Unknown command")
+
+                conn.sendall(b'Command executed')
 
 
 
 
+if __name__ == "__main__":
+    connect_to_client(65432)

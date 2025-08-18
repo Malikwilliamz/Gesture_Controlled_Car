@@ -34,3 +34,4 @@ License
     -Able ot control motors through keyboard
     -Realized that I will need to uninstall the tensorflow lib and only leave the tensorflow-cpu lib when training the model with new gestures 
      then adding the tensorflow lib when running 'app.py' 
+    -Make sure the directories in the 'keypoint_classifier.py' and 'point_history_classifier.py' are configured correctly

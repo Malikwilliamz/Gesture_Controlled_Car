@@ -29,4 +29,8 @@ License
     -Worked on Repo and Structure
     -Acquired token for PI (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-->paste in password)
 
-->
+->(08/14):
+    -Able to control motors through trigger from client
+    -Able ot control motors through keyboard
+    -Realized that I will need to uninstall the tensorflow lib and only leave the tensorflow-cpu lib when training the model with new gestures 
+     then adding the tensorflow lib when running 'app.py' 

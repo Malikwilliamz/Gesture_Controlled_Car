@@ -4,8 +4,6 @@ This module contains the hardware configuration for the gesture-controlled car.
 import time
 import piplates.MOTORplate as MOTOR
 
-# Motor plate configuration
-MOTOR.dcCONFIG(0, 1, 'cw', 50.0, 2.5)
 
 
 def run_motor1():

@@ -1,13 +1,11 @@
 import socket
-import sys, tty, termios, time
-import keyboard
-from sshkeyboard import listen_keyboard
+import sys
 
 sys.path.append('/home/malik/Documents/Gesture_Controlled_Car/Gesture_Controlled_Car/Code/Utils')
 sys.path.append('/home/malik/Documents/Gesture_Controlled_Car/Gesture_Controlled_Car/Config')
 
 from network import HOST_IP
-from hardware_config import move_forward, move_backward, move_forward_when_pressed, move_backward_when_pressed,stop_all
+from hardware_config import move_forward,stop_all
 
 
 
@@ -32,11 +30,10 @@ def connect_to_client(PORT):
 
                 if (data == "FORWARD"):
                     print("Moving forward")
-                    move_forward()               
+                    move_forward()
  
                 elif data == "BACKWARD":
                     print("Moving backward")
-                    move_backward()
 
                 elif data == "LEFT":
                     print("Turning left")
@@ -44,11 +41,19 @@ def connect_to_client(PORT):
                 elif data == "RIGHT":
                     print("Turning right")
 
+                elif data == "Stop":
+                    print("Stopping")
+                    stop_all()
+
+                elif (data == "Open") or (data == "Pointer") or (data == "OK"):
+                    print("Nothing")
+
+
+
                 else:
                     stop_all()
                     print("Unknown command")
 
-                conn.sendall(b'Command executed')
 
 
 

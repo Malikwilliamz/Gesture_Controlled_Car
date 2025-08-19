@@ -19,7 +19,7 @@ from model import PointHistoryClassifier
 global command_to_server
 
 sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Code/Utils')
-from network import HOST_IP, SERVER_IP
+from network import HOST_IP, SERVER_IP, PORT
 #sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Config')
 
 #from hardware_config import move_forward, move_backward, move_forward_when_pressed, move_backward_when_pressed,stop_all
@@ -46,6 +46,10 @@ def get_args():
 
     return args
 
+def connect_to_program_b(host=SERVER_IP, port=PORT):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((host, port))
+    return s
 
 def main():
     # Argument parsing #################################################################
@@ -106,8 +110,9 @@ def main():
 
     #  ########################################################################
     mode = 0
-
+    client_socket = connect_to_program_b()
     while True:
+        
         fps = cvFpsCalc.get()
 
         # Process Key (ESC: end) #################################################
@@ -155,6 +160,19 @@ def main():
                 else:
                     point_history.append([0, 0])
 
+                last_gesture = None
+
+                
+                gesture_label = keypoint_classifier_labels[hand_sign_id]
+
+                if gesture_label != last_gesture:
+                    try:
+                        client_socket.sendall((gesture_label).encode())
+                        last_gesture = gesture_label
+                    except BrokenPipeError:
+                        print("⚠️ Lost connection to Program B")
+                        break
+
                 # Finger gesture classification
                 finger_gesture_id = 0
                 point_history_len = len(pre_processed_point_history_list)
@@ -177,6 +195,8 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
+                command_to_server = keypoint_classifier_labels[hand_sign_id]
+                print_command_to_server(command_to_server)
         else:
             point_history.append([0, 0])
 
@@ -185,10 +205,12 @@ def main():
 
         # Screen reflection #############################################################
         cv.imshow('Hand Gesture Recognition', debug_image)
-        start_client(HOST_IP, 65432)
+        
+        
 
     cap.release()
     cv.destroyAllWindows()
+    #start_client(HOST_IP, 65432)
 
 
 def select_mode(key, mode):
@@ -522,6 +544,7 @@ def draw_info_text(image, brect, handedness, hand_sign_text,
     return image
 
 
+
 def draw_point_history(image, point_history):
     for index, point in enumerate(point_history):
         if point[0] != 0 and point[1] != 0:
@@ -548,7 +571,10 @@ def draw_info(image, fps, mode, number):
                        cv.LINE_AA)
     return image
 
-def start_client(HOST, PORT):
+def print_command_to_server(command):
+    print(command)
+
+"""def start_client(HOST, PORT):
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((HOST, PORT))
@@ -562,8 +588,20 @@ def start_client(HOST, PORT):
                 break
 
             response = client.recv(1024).decode()
-            print(f"Server response: {response}")
+            print(f"Server response: {response}")"""
 
+
+def start_client(host, port, message):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
+            client.connect((host, port))
+            while True:
+                client.sendall(message.encode('utf-8'))
+    
+
+    except Exception as e:
+        print(f"[ERROR] Could not send command '{message}' to server: {e}")
 
 if __name__ == '__main__':
+    
     main()

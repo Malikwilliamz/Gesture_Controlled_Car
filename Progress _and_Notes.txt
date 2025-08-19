@@ -37,4 +37,5 @@ License
     -Make sure the directories in the 'keypoint_classifier.py' and 'point_history_classifier.py' are configured correctly
     
 ->(08/18)
-    -
+    -Able to Control motion based on gestures. This entails communication between app.py and server.py
+    -Configured app.py to start client and send command based on gesture that is up

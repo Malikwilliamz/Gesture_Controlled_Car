@@ -7,7 +7,6 @@ import itertools
 from collections import Counter
 from collections import deque
 import sys
-import socket
 
 import cv2 as cv
 import numpy as np
@@ -16,14 +15,9 @@ import mediapipe as mp
 from utils import CvFpsCalc
 from model import KeyPointClassifier
 from model import PointHistoryClassifier
-global command_to_server
 
-sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Code/Utils')
-from network import HOST_IP, SERVER_IP
-#sys.path.append('/home/malo/Documents/Gesture_Controlled_Car/Config')
-
+#sys.path.append('/home/malik/Documents/Gesture_Controlled_Car/Gesture_Controlled_Car/Config')
 #from hardware_config import move_forward, move_backward, move_forward_when_pressed, move_backward_when_pressed,stop_all
-command_to_server = ""
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -80,14 +74,14 @@ def main():
     point_history_classifier = PointHistoryClassifier()
 
     # Read labels ###########################################################
-    with open('Code/Client_Code/hand-gesture-recognition-mediapipe-main/model/keypoint_classifier/keypoint_classifier_label.csv',
+    with open('hand-gesture-recognition-mediapipe-main/model/keypoint_classifier/keypoint_classifier_label.csv',
               encoding='utf-8-sig') as f:
         keypoint_classifier_labels = csv.reader(f)
         keypoint_classifier_labels = [
             row[0] for row in keypoint_classifier_labels
         ]
     with open(
-            'Code/Client_Code/hand-gesture-recognition-mediapipe-main/model/point_history_classifier/point_history_classifier_label.csv',
+            'hand-gesture-recognition-mediapipe-main/model/point_history_classifier/point_history_classifier_label.csv',
             encoding='utf-8-sig') as f:
         point_history_classifier_labels = csv.reader(f)
         point_history_classifier_labels = [
@@ -185,12 +179,13 @@ def main():
 
         # Screen reflection #############################################################
         cv.imshow('Hand Gesture Recognition', debug_image)
-        start_client(HOST_IP, 65432)
 
     cap.release()
     cv.destroyAllWindows()
 
 
+def select_mode(key, mode):
+    number = -1
 def select_mode(key, mode):
     number = -1
     if 48 <= key <= 57:  # 0 ~ 9
@@ -292,12 +287,12 @@ def logging_csv(number, mode, landmark_list, point_history_list):
     if mode == 0:
         pass
     if mode == 1 and (0 <= number <= 9):
-        csv_path = 'Code/Client_Code/hand-gesture-recognition-mediapipe-main/model/keypoint_classifier/keypoint.csv'
+        csv_path = 'hand-gesture-recognition-mediapipe-main/model/keypoint_classifier/keypoint.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow([number, *landmark_list])
     if mode == 2 and (0 <= number <= 9):
-        csv_path = 'Code/Client_Code/hand-gesture-recognition-mediapipe-main/model/point_history_classifier/point_history.csv'
+        csv_path = 'hand-gesture-recognition-mediapipe-main/model/point_history_classifier/point_history.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow([number, *point_history_list])
@@ -518,7 +513,7 @@ def draw_info_text(image, brect, handedness, hand_sign_text,
         cv.putText(image, "Finger Gesture:" + finger_gesture_text, (10, 60),
                    cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 2,
                    cv.LINE_AA)
-    command_to_server = hand_sign_text  
+    print(finger_gesture_text)
     return image
 
 
@@ -547,22 +542,6 @@ def draw_info(image, fps, mode, number):
                        cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                        cv.LINE_AA)
     return image
-
-def start_client(HOST, PORT):
-
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-        client.connect((HOST, PORT))
-
-        while True:
-            command = command_to_server
-            client.sendall(command.encode())
-
-            if command.lower() == 'exit':
-                print("Exiting client.")
-                break
-
-            response = client.recv(1024).decode()
-            print(f"Server response: {response}")
 
 
 if __name__ == '__main__':

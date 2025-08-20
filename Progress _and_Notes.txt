@@ -39,3 +39,7 @@ License
 ->(08/18)
     -Able to Control motion based on gestures. This entails communication between app.py and server.py
     -Configured app.py to start client and send command based on gesture that is up
+
+->(08/19)
+    -Configured Left turn
+    -Set up motor testing

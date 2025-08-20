@@ -46,7 +46,7 @@ def get_args():
 
     return args
 
-def connect_to_program_b(host=SERVER_IP, port=PORT):
+def connect_to_server(host=SERVER_IP, port=PORT):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))
     return s
@@ -110,7 +110,7 @@ def main():
 
     #  ########################################################################
     mode = 0
-    client_socket = connect_to_program_b()
+    client_socket = connect_to_server()
     while True:
         
         fps = cvFpsCalc.get()
@@ -160,8 +160,8 @@ def main():
                 else:
                     point_history.append([0, 0])
 
+                # Network Communication based on hand sign
                 last_gesture = None
-
                 
                 gesture_label = keypoint_classifier_labels[hand_sign_id]
 
@@ -170,7 +170,7 @@ def main():
                         client_socket.sendall((gesture_label).encode())
                         last_gesture = gesture_label
                     except BrokenPipeError:
-                        print("⚠️ Lost connection to Program B")
+                        print("Lost connection")
                         break
 
                 # Finger gesture classification
@@ -195,8 +195,9 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
+                
                 command_to_server = keypoint_classifier_labels[hand_sign_id]
-                print_command_to_server(command_to_server)
+                print(command_to_server)
         else:
             point_history.append([0, 0])
 
@@ -571,36 +572,6 @@ def draw_info(image, fps, mode, number):
                        cv.LINE_AA)
     return image
 
-def print_command_to_server(command):
-    print(command)
-
-"""def start_client(HOST, PORT):
-
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-        client.connect((HOST, PORT))
-
-        while True:
-            command = command_to_server
-            client.sendall(command.encode())
-
-            if command.lower() == 'exit':
-                print("Exiting client.")
-                break
-
-            response = client.recv(1024).decode()
-            print(f"Server response: {response}")"""
-
-
-def start_client(host, port, message):
-    try:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-            client.connect((host, port))
-            while True:
-                client.sendall(message.encode('utf-8'))
-    
-
-    except Exception as e:
-        print(f"[ERROR] Could not send command '{message}' to server: {e}")
 
 if __name__ == '__main__':
     

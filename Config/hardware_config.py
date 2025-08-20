@@ -31,3 +31,26 @@ def stop_all():
     MOTOR.dcSTOP(0, 2)
     MOTOR.dcSTOP(0, 3)
     MOTOR.dcSTOP(0, 4)
+
+def move_backward():
+    MOTOR.dcCONFIG(0, 1, 'cw', 50.0, 0)
+    MOTOR.dcCONFIG(0, 2, 'cw', 50.0, 0)
+    MOTOR.dcCONFIG(0, 3, 'ccw', 50.0, 0)
+    MOTOR.dcCONFIG(0, 4, 'ccw', 50.0, 0)
+
+    MOTOR.dcSTART(0, 1)
+    MOTOR.dcSTART(0, 2)
+    MOTOR.dcSTART(0, 3)
+    MOTOR.dcSTART(0, 4)
+
+def turn_left():
+    #MOTOR.dcCONFIG(0, 1, 'cw', 50.0, 0)
+    #MOTOR.dcCONFIG(0, 2, 'cw', 50.0, 0)
+    MOTOR.dcCONFIG(0, 3, 'cw', 30.0, 0)
+    MOTOR.dcCONFIG(0, 4, 'cw', 30.0, 0)
+
+    MOTOR.dcSTART(0, 3)
+    MOTOR.dcSTART(0, 4)
+    time.sleep(2)
+    MOTOR.dcSTOP(0, 3)
+    MOTOR.dcSTOP(0, 4)

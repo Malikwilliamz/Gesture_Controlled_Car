@@ -27,7 +27,11 @@ License
 
 ->(08/13):
     -Worked on Repo and Structure
+<<<<<<< HEAD
     -Acquired token for PI (password on desktop of PI)
+=======
+    -Acquired token for PI 
+>>>>>>> d7267728cf03908a1f0f9b5f2f48b457d00cafa6
 
 ->(08/17):
     -Able to control motors through trigger from client
@@ -42,4 +46,8 @@ License
 
 ->(08/19)
     -Configured Left turn
+<<<<<<< HEAD
     -Set up motor testing
+=======
+    -Set up motor testing
+>>>>>>> d7267728cf03908a1f0f9b5f2f48b457d00cafa6

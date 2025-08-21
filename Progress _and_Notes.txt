@@ -27,7 +27,7 @@ License
 
 ->(08/13):
     -Worked on Repo and Structure
-    -Acquired token for PI (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-->paste in password)
+    -Acquired token for PI 
 
 ->(08/17):
     -Able to control motors through trigger from client

@@ -15,16 +15,16 @@ while True:
 		print("Moving forward")
         
 	elif keyboard.is_pressed('s'):
-			move_backward()
-			print("Moving backward")
+		move_backward()
+		print("Moving backward")
 
 	elif keyboard.is_pressed('a'):
-			turn_left()
-			print("Turning Left")
+		turn_left()
+		print("Turning Left")
 
 	elif keyboard.is_pressed('d'):
-			turn_right()
-			print("Turning Right")
+		turn_right()
+		print("Turning Right")
 
 
 	elif keyboard.is_pressed('q'):

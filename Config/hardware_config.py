@@ -51,8 +51,8 @@ def turn_left():
 
     MOTOR.dcSTART(0, 1)
     MOTOR.dcSTART(0, 2)
-    MOTOR.dcSTOP(0, 3)
-    MOTOR.dcSTOP(0, 4)
+    MOTOR.dcSTART(0, 3)
+    MOTOR.dcSTART(0, 4)
 
 def turn_right():
     MOTOR.dcCONFIG(0, 1, 'ccw', 50.0, 0)
@@ -62,7 +62,7 @@ def turn_right():
 
     MOTOR.dcSTART(0, 1)
     MOTOR.dcSTART(0, 2)
-    MOTOR.dcSTOP(0, 3)
-    MOTOR.dcSTOP(0, 4)
+    MOTOR.dcSTART(0, 3)
+    MOTOR.dcSTART(0, 4)
 
 

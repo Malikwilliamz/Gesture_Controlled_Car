@@ -5,7 +5,7 @@ sys.path.append('/home/malik/Documents/Gesture_Controlled_Car/Gesture_Controlled
 sys.path.append('/home/malik/Documents/Gesture_Controlled_Car/Gesture_Controlled_Car/Config')
 
 from network import HOST_IP
-from hardware_config import move_forward,stop_all
+from hardware_config import move_forward, move_backward, turn_left, turn_right, stop_all
 
 
 
@@ -34,21 +34,19 @@ def connect_to_client(PORT):
  
                 elif data == "BACKWARD":
                     print("Moving backward")
+                    move_backward()
 
                 elif data == "LEFT":
                     print("Turning left")
+                    turn_left()
 
                 elif data == "RIGHT":
                     print("Turning right")
+                    turn_right()
 
                 elif data == "Stop":
                     print("Stopping")
                     stop_all()
-
-                elif (data == "Open") or (data == "Pointer") or (data == "OK"):
-                    print("Nothing")
-
-
 
                 else:
                     stop_all()

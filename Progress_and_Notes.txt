@@ -47,3 +47,6 @@ License
 ->(08/20)
     -token-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
     -Configured left and right turn functionality
+
+->(08/21)
+    -Trained Gesture_Recognition model with respective gestures for the car's motion (forward, stop, backward, left, right)

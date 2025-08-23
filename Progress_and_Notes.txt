@@ -50,3 +50,4 @@ License
 
 ->(08/21)
     -Trained Gesture_Recognition model with respective gestures for the car's motion (forward, stop, backward, left, right)
+    -integrated Gesture Controlled Motion
